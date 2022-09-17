@@ -25,6 +25,10 @@ function Get-Section([string[]]$rows, [string]$name){
 	}
 }
 
+function Insert-Parameter([string] $name, $value, [string] $text){
+	$text.Replace(('#$' + $name + '$#'), [System.Net.WebUtility]::HtmlEncode($value.ToString()))
+}
+
 $label_root = Get-Section $label "root"
 $label = Get-Section $label "label"
 
@@ -32,10 +36,9 @@ $labels = ""
 $c = 0
 foreach($row in $data){
 	$rep = $label -join "`r`n"
-	$rep = $rep.Replace('#$COUNT$#', $c.ToString())
-	
+	$rep = Insert-Parameter "COUNT" $c $rep
 	foreach($prop in $row.PSObject.Properties){
-		$rep = $rep.Replace(('#$' + $prop.Name + '$#'), [System.Net.WebUtility]::HtmlEncode($prop.Value.ToString()))
+		$rep = Insert-Parameter $prop.Name $prop.Value $rep
 	}
 	$labels += "<div class='label-container'>`r`n$($rep)`r`n</div>`r`n"
 	$c = $c + 1
