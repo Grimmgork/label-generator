@@ -12,7 +12,7 @@ Ideal for:
 
 example template:
 ```
-./label.ps1 ./example/label.html ./example/names.csv ./result.html
+./label.ps1 ./example/label.html ./example/names.csv > ./result.html
 ```
 
 then open the ./result.html in the browser

@@ -1,8 +1,17 @@
+param (
+    [string]$templatePath = $(throw "-templatePath is required."), 
+    [string]$dataPath = $(throw "-dataPath is required.")
+)
+
 Add-Type -AssemblyName System.Web
 
-$data = Import-Csv -Path .\example\names.csv
-
+$data = Import-Csv $dataPath
 $result = Get-Content .\index.html
+$label = Get-Content $templatePath
+
+if((-not $data) -or (-not $result) -or (-not $label)){
+	throw "file missing!"
+}
 
 function Get-Section([string[]]$rows, [string]$name){
 	$start = $rows.IndexOf("#$($name)")
@@ -16,7 +25,6 @@ function Get-Section([string[]]$rows, [string]$name){
 	}
 }
 
-$label = Get-Content .\example\label.html
 $label_root = Get-Section $label "root"
 $label = Get-Section $label "label"
 
