@@ -38,7 +38,7 @@ foreach($row in $data){
 	$rep = $label -join "`r`n"
 	$rep = Insert-Parameter "COUNT" $c $rep
 	foreach($prop in $row.PSObject.Properties){
-		$rep = Insert-Parameter $prop.Name $prop.Value $rep
+		$rep = Insert-Parameter $prop.Name.ToLower() $prop.Value $rep
 	}
 	$labels += "<div class='label-container'>`r`n$($rep)`r`n</div>`r`n"
 	$c = $c + 1
