@@ -19,7 +19,7 @@ then open the ./result.html in the browser
 
 ## custom template syntax:
 
-the template describes the html-snippets wich get placed by each iteration.
+the template describes the html-snippets wich get placed by each iteration. Each row in the Dataset corresponds to a Iteration. The values in each row are the parameters wich get inserted into the snippet.
 
 a minimal template looks like this:
 ```
